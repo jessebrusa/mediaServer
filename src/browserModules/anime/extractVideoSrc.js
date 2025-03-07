@@ -1,3 +1,5 @@
+const { JSDOM } = require('jsdom');
+
 class ExtractVideoSrc {
     constructor(page) {
         this.page = page;
@@ -19,6 +21,7 @@ class ExtractVideoSrc {
         }
         await this.extractVideoSrc();
         if (this.videoSrc) {
+            console.log(this.videoSrc);
             return this.videoSrc;
         }
         return null;
@@ -40,7 +43,7 @@ class ExtractVideoSrc {
             
             const iframeContent = await this.iframe.contentFrame();
             const iframeHtml = await iframeContent.content();
-            this.soup = new DOMParser().parseFromString(iframeHtml, 'text/html');
+            this.soup = new JSDOM(iframeHtml).window.document;
         } catch (e) {
             console.log(e);
         }
@@ -68,7 +71,7 @@ class ExtractVideoSrc {
     async extractVideoSrc() {
         if (this.videoElement) {
             this.videoSrc = await this.videoElement.getProperty('src');
-            this.videoSrc = this.videoSrc.jsonValue();
+            this.videoSrc = await this.videoSrc.jsonValue(); // Await the resolution of the Promise
             if (this.videoSrc) {
                 return;
             }
@@ -87,8 +90,7 @@ class ExtractVideoSrc {
             });
 
             for (const comment of comments) {
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(comment, 'text/html');
+                const doc = new JSDOM(comment).window.document;
                 const sourceElement = doc.querySelector('source');
                 if (sourceElement) {
                     this.videoSrc = sourceElement.getAttribute('src');

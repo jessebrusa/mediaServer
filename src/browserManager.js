@@ -47,7 +47,7 @@ class BrowserManager {
   async extractVideoSrcs(episodes) {
     const videoSrcs = [];
     for (const episode of episodes) {
-        const { context, page } = await this.newPage();
+        const { context, page } = await this.newPage(false);
         await page.goto(episode.url);
         const extractVideoSrc = new ExtractVideoSrc(page);
         const videoSrc = await extractVideoSrc.getVideoSrc();
