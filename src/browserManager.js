@@ -2,7 +2,7 @@ const { chromium } = require('playwright');
 const SearchAnime = require('./browserModules/anime/searchAnime');
 const CompileEpisodes = require('./browserModules/anime/compileEpisodes');
 const ExtractVideoSrc = require('./browserModules/anime/extractVideoSrc');
-const Headers = require('./browserModules/headers');
+const Headers = require('./headers');
 
 class BrowserManager {
   constructor() {
@@ -57,7 +57,6 @@ class BrowserManager {
       const promises = batch.map(async (episode) => {
         const { context, page } = await this.newPage(false);
 
-        // Set headers and cookies
         await page.setExtraHTTPHeaders(headers);
 
         await page.goto(episode.url);
@@ -73,7 +72,6 @@ class BrowserManager {
       console.log(`Processed ${processedCount}/${totalEpisodes} episodes`);
     }
 
-    console.log(videoSrcs);
     return videoSrcs;
   }
 
