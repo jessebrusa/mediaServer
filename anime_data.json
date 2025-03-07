@@ -1,0 +1,574 @@
+{
+  "testTitle": "Pokemon Season 1 Indigo League",
+  "testHref": "/anime/pokemon-season-1-indigo-league",
+  "testImgSrc": "https://cdn.animationexplore.com/catimg/136.jpg",
+  "episodes": [
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 1",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-1",
+      "seasonNumber": "01",
+      "episodeNumber": "01",
+      "outputFileName": "s01e01.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 2",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-2",
+      "seasonNumber": "01",
+      "episodeNumber": "02",
+      "outputFileName": "s01e02.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 3",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-3",
+      "seasonNumber": "01",
+      "episodeNumber": "03",
+      "outputFileName": "s01e03.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 4",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-4",
+      "seasonNumber": "01",
+      "episodeNumber": "04",
+      "outputFileName": "s01e04.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 5",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-5",
+      "seasonNumber": "01",
+      "episodeNumber": "05",
+      "outputFileName": "s01e05.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 6",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-6",
+      "seasonNumber": "01",
+      "episodeNumber": "06",
+      "outputFileName": "s01e06.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 7",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-7",
+      "seasonNumber": "01",
+      "episodeNumber": "07",
+      "outputFileName": "s01e07.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 8",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-8",
+      "seasonNumber": "01",
+      "episodeNumber": "08",
+      "outputFileName": "s01e08.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 9",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-9",
+      "seasonNumber": "01",
+      "episodeNumber": "09",
+      "outputFileName": "s01e09.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 10",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-10",
+      "seasonNumber": "01",
+      "episodeNumber": "10",
+      "outputFileName": "s01e10.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 11",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-11",
+      "seasonNumber": "01",
+      "episodeNumber": "11",
+      "outputFileName": "s01e11.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 12",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-12",
+      "seasonNumber": "01",
+      "episodeNumber": "12",
+      "outputFileName": "s01e12.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 13",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-13",
+      "seasonNumber": "01",
+      "episodeNumber": "13",
+      "outputFileName": "s01e13.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 14",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-14",
+      "seasonNumber": "01",
+      "episodeNumber": "14",
+      "outputFileName": "s01e14.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 15",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-15",
+      "seasonNumber": "01",
+      "episodeNumber": "15",
+      "outputFileName": "s01e15.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 16",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-16",
+      "seasonNumber": "01",
+      "episodeNumber": "16",
+      "outputFileName": "s01e16.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 17",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-17",
+      "seasonNumber": "01",
+      "episodeNumber": "17",
+      "outputFileName": "s01e17.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 18",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-18",
+      "seasonNumber": "01",
+      "episodeNumber": "18",
+      "outputFileName": "s01e18.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 19",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-19",
+      "seasonNumber": "01",
+      "episodeNumber": "19",
+      "outputFileName": "s01e19.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 20",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-20",
+      "seasonNumber": "01",
+      "episodeNumber": "20",
+      "outputFileName": "s01e20.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 21",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-21",
+      "seasonNumber": "01",
+      "episodeNumber": "21",
+      "outputFileName": "s01e21.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 22",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-22",
+      "seasonNumber": "01",
+      "episodeNumber": "22",
+      "outputFileName": "s01e22.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 23",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-23",
+      "seasonNumber": "01",
+      "episodeNumber": "23",
+      "outputFileName": "s01e23.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 24",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-24",
+      "seasonNumber": "01",
+      "episodeNumber": "24",
+      "outputFileName": "s01e24.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 25",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-25",
+      "seasonNumber": "01",
+      "episodeNumber": "25",
+      "outputFileName": "s01e25.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 26",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-26",
+      "seasonNumber": "01",
+      "episodeNumber": "26",
+      "outputFileName": "s01e26.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 27",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-27",
+      "seasonNumber": "01",
+      "episodeNumber": "27",
+      "outputFileName": "s01e27.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 28",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-28",
+      "seasonNumber": "01",
+      "episodeNumber": "28",
+      "outputFileName": "s01e28.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 29",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-29",
+      "seasonNumber": "01",
+      "episodeNumber": "29",
+      "outputFileName": "s01e29.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 30",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-30",
+      "seasonNumber": "01",
+      "episodeNumber": "30",
+      "outputFileName": "s01e30.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 31",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-31",
+      "seasonNumber": "01",
+      "episodeNumber": "31",
+      "outputFileName": "s01e31.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 32",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-32",
+      "seasonNumber": "01",
+      "episodeNumber": "32",
+      "outputFileName": "s01e32.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 33",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-33",
+      "seasonNumber": "01",
+      "episodeNumber": "33",
+      "outputFileName": "s01e33.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 34",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-34",
+      "seasonNumber": "01",
+      "episodeNumber": "34",
+      "outputFileName": "s01e34.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Episode 35 English Dubbed",
+      "href": "https://www.wcostream.tv/pokemon-episode-35-english-dubbed",
+      "seasonNumber": "01",
+      "episodeNumber": "35",
+      "outputFileName": "s01e35.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 36",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-36",
+      "seasonNumber": "01",
+      "episodeNumber": "36",
+      "outputFileName": "s01e36.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 37",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-37",
+      "seasonNumber": "01",
+      "episodeNumber": "37",
+      "outputFileName": "s01e37.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 38",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-38",
+      "seasonNumber": "01",
+      "episodeNumber": "38",
+      "outputFileName": "s01e38.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 39",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-39",
+      "seasonNumber": "01",
+      "episodeNumber": "39",
+      "outputFileName": "s01e39.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 40",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-40",
+      "seasonNumber": "01",
+      "episodeNumber": "40",
+      "outputFileName": "s01e40.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 41",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-41",
+      "seasonNumber": "01",
+      "episodeNumber": "41",
+      "outputFileName": "s01e41.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 42",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-42",
+      "seasonNumber": "01",
+      "episodeNumber": "42",
+      "outputFileName": "s01e42.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 43",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-43",
+      "seasonNumber": "01",
+      "episodeNumber": "43",
+      "outputFileName": "s01e43.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 44",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-44",
+      "seasonNumber": "01",
+      "episodeNumber": "44",
+      "outputFileName": "s01e44.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 45",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-45",
+      "seasonNumber": "01",
+      "episodeNumber": "45",
+      "outputFileName": "s01e45.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 46",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-46",
+      "seasonNumber": "01",
+      "episodeNumber": "46",
+      "outputFileName": "s01e46.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 47",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-47",
+      "seasonNumber": "01",
+      "episodeNumber": "47",
+      "outputFileName": "s01e47.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 48",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-48",
+      "seasonNumber": "01",
+      "episodeNumber": "48",
+      "outputFileName": "s01e48.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 49",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-49",
+      "seasonNumber": "01",
+      "episodeNumber": "49",
+      "outputFileName": "s01e49.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 50",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-50",
+      "seasonNumber": "01",
+      "episodeNumber": "50",
+      "outputFileName": "s01e50.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 51",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-51",
+      "seasonNumber": "01",
+      "episodeNumber": "51",
+      "outputFileName": "s01e51.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 52",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-52",
+      "seasonNumber": "01",
+      "episodeNumber": "52",
+      "outputFileName": "s01e52.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 53",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-53",
+      "seasonNumber": "01",
+      "episodeNumber": "53",
+      "outputFileName": "s01e53.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 54",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-54",
+      "seasonNumber": "01",
+      "episodeNumber": "54",
+      "outputFileName": "s01e54.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 55",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-55",
+      "seasonNumber": "01",
+      "episodeNumber": "55",
+      "outputFileName": "s01e55.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 56",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-56",
+      "seasonNumber": "01",
+      "episodeNumber": "56",
+      "outputFileName": "s01e56.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 57",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-57",
+      "seasonNumber": "01",
+      "episodeNumber": "57",
+      "outputFileName": "s01e57.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 58",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-58",
+      "seasonNumber": "01",
+      "episodeNumber": "58",
+      "outputFileName": "s01e58.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 59",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-59",
+      "seasonNumber": "01",
+      "episodeNumber": "59",
+      "outputFileName": "s01e59.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 60",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-60",
+      "seasonNumber": "01",
+      "episodeNumber": "60",
+      "outputFileName": "s01e60.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 61",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-61",
+      "seasonNumber": "01",
+      "episodeNumber": "61",
+      "outputFileName": "s01e61.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 62",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-62",
+      "seasonNumber": "01",
+      "episodeNumber": "62",
+      "outputFileName": "s01e62.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 63",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-63",
+      "seasonNumber": "01",
+      "episodeNumber": "63",
+      "outputFileName": "s01e63.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 64",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-64",
+      "seasonNumber": "01",
+      "episodeNumber": "64",
+      "outputFileName": "s01e64.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 65",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-65",
+      "seasonNumber": "01",
+      "episodeNumber": "65",
+      "outputFileName": "s01e65.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 66",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-66",
+      "seasonNumber": "01",
+      "episodeNumber": "66",
+      "outputFileName": "s01e66.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 67",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-67",
+      "seasonNumber": "01",
+      "episodeNumber": "67",
+      "outputFileName": "s01e67.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 68",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-68",
+      "seasonNumber": "01",
+      "episodeNumber": "68",
+      "outputFileName": "s01e68.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 69",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-69",
+      "seasonNumber": "01",
+      "episodeNumber": "69",
+      "outputFileName": "s01e69.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 70",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-70",
+      "seasonNumber": "01",
+      "episodeNumber": "70",
+      "outputFileName": "s01e70.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 71",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-71",
+      "seasonNumber": "01",
+      "episodeNumber": "71",
+      "outputFileName": "s01e71.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 72 – 73",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-72-73",
+      "seasonNumber": "01",
+      "episodeNumber": "72",
+      "outputFileName": "s01e72.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 74",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-74",
+      "seasonNumber": "01",
+      "episodeNumber": "74",
+      "outputFileName": "s01e74.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 75",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-75",
+      "seasonNumber": "01",
+      "episodeNumber": "75",
+      "outputFileName": "s01e75.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 76",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-76",
+      "seasonNumber": "01",
+      "episodeNumber": "76",
+      "outputFileName": "s01e76.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 77",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-77",
+      "seasonNumber": "01",
+      "episodeNumber": "77",
+      "outputFileName": "s01e77.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 78",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-78",
+      "seasonNumber": "01",
+      "episodeNumber": "78",
+      "outputFileName": "s01e78.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 79",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-79",
+      "seasonNumber": "01",
+      "episodeNumber": "79",
+      "outputFileName": "s01e79.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Season 1 Episode 80",
+      "href": "https://www.wcostream.tv/pokemon-season-1-episode-80",
+      "seasonNumber": "01",
+      "episodeNumber": "80",
+      "outputFileName": "s01e80.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Episode 81 English Dubbed",
+      "href": "https://www.wcostream.tv/pokemon-episode-81-english-dubbed",
+      "seasonNumber": "01",
+      "episodeNumber": "81",
+      "outputFileName": "s01e81.mp4"
+    },
+    {
+      "episodeTitle": "Pokemon Episode 82 English Dubbed",
+      "href": "https://www.wcostream.tv/pokemon-episode-82-english-dubbed",
+      "seasonNumber": "01",
+      "episodeNumber": "82",
+      "outputFileName": "s01e82.mp4"
+    }
+  ]
+}

@@ -1,24 +1,30 @@
 const { chromium } = require('playwright');
 const SearchAnime = require('./browserModules/anime/searchAnime');
 const CompileEpisodes = require('./browserModules/anime/compileEpisodes');
+const ExtractVideoSrc = require('./browserModules/anime/extractVideoSrc');
 
 class BrowserManager {
   constructor() {
-    this.browser = null;
+    this.headlessBrowser = null;
+    this.nonHeadlessBrowser = null;
     this.base_anime_url = 'https://www.wcostream.tv';
   }
 
-  async startBrowser() {
-    if (!this.browser) {
-      this.browser = await chromium.launch({headless: false});
+  async startBrowsers() {
+    if (!this.headlessBrowser) {
+      this.headlessBrowser = await chromium.launch({ headless: true });
+    }
+    if (!this.nonHeadlessBrowser) {
+      this.nonHeadlessBrowser = await chromium.launch({ headless: false });
     }
   }
 
-  async newPage() {
-    if (!this.browser) {
-      throw new Error('Browser is not started. Call startBrowser() first.');
+  async newPage(headless = true) {
+    const browser = headless ? this.headlessBrowser : this.nonHeadlessBrowser;
+    if (!browser) {
+      throw new Error('Browser is not started. Call startBrowsers() first.');
     }
-    const context = await this.browser.newContext();
+    const context = await browser.newContext();
     const page = await context.newPage();
     return { context, page };
   }
@@ -36,6 +42,20 @@ class BrowserManager {
     const compileEpisodes = new CompileEpisodes(page);
     const episodes = await compileEpisodes.compileEpisodes();
     return episodes;
+  }
+
+  async extractVideoSrcs(episodes) {
+    const videoSrcs = [];
+    for (const episode of episodes) {
+        const { context, page } = await this.newPage();
+        await page.goto(episode.url);
+        const extractVideoSrc = new ExtractVideoSrc(page);
+        const videoSrc = await extractVideoSrc.getVideoSrc();
+        videoSrcs.push(videoSrc);
+        await this.closeContext(context);
+    }
+    console.log(videoSrcs);
+    return videoSrcs;
   }
 
   async closeContext(context) {

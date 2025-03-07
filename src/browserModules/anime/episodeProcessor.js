@@ -3,7 +3,7 @@ class EpisodeProcessor {
         this.element = element;
         this.assigned_episode_numbers = assigned_episode_numbers;
         this.episodeTitle = null;
-        this.href = null;
+        this.url = null;
         this.seasonNumber = null;
         this.episodeNumber = null;
         this.outputFileName = null;
@@ -17,7 +17,7 @@ class EpisodeProcessor {
         this.outputFileName = `s${this.seasonNumber}e${this.episodeNumber}.mp4`;
         return {
             'episodeTitle': this.episodeTitle,
-            'href': this.href,
+            'url': this.url,
             'seasonNumber': this.seasonNumber,
             'episodeNumber': this.episodeNumber,
             'outputFileName': this.outputFileName
@@ -29,7 +29,7 @@ class EpisodeProcessor {
     }
 
     async process_episode_href() {
-        this.href = await this.element.getAttribute('href');
+        this.url = await this.element.getAttribute('href');
     }
 
     async process_season_number() {

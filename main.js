@@ -1,11 +1,13 @@
 const express = require('express');
+const fs = require('fs');
+const path = require('path');
 const BrowserManager = require('./src/browserManager');
 
 const app = express();
 const browserManager = new BrowserManager();
 
 (async () => {
-  await browserManager.startBrowser();
+  await browserManager.startBrowsers();
 })();
 
 app.get('/', (req, res) => {
@@ -13,7 +15,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/search-anime', async (req, res) => {
-  const test_title = 'pokemon'
+  const test_title = 'pokemon';
   const { context, page } = await browserManager.newPage();
   const titles = await browserManager.searchAnime(page, test_title);
   await browserManager.closeContext(context);
@@ -21,21 +23,25 @@ app.get('/search-anime', async (req, res) => {
 });
 
 app.get('/select-anime', async (req, res) => {
-  const testTitle = 'Pokemon Season 1 Indigo League';
-  const testHref = '/anime/pokemon-season-1-indigo-league';
-  const testImgSrc =  'https://cdn.animationexplore.com/catimg/136.jpg'
   // const { title, href, imgSrc } = req.query;
+  const animeDataPath = path.join(__dirname, 'anime_data.json');
+  const animeData = JSON.parse(fs.readFileSync(animeDataPath, 'utf8'));
 
-  const { context, page } = await browserManager.newPage();
-  const episodes = await browserManager.selectAnime(page, testHref);
-  const data = {
-    testTitle,
-    testHref,
-    testImgSrc,
-    episodes
-  };
-  await browserManager.closeContext(context);
-  res.send(data);
+  const { testTitle, testHref, testImgSrc, episodes } = animeData;
+  
+  (async () => {
+    const { context, page } = await browserManager.newPage();
+
+    console.log('starting episode processing...');
+    const episodes = await browserManager.selectAnime(page, testHref);
+    await browserManager.closeContext(context);
+
+    console.log('starting video extraction...');
+    videoSrcList = await browserManager.extractVideoSrcs(episodes);
+    console.log(videoSrcList);
+    
+  })();
+  res.send(`Downloading: ${testTitle}....`);
 });
 
 app.listen(7000, () => {
