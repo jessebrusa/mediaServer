@@ -1,5 +1,6 @@
 const { chromium } = require('playwright');
 const SearchAnime = require('./browserModules/anime/searchAnime');
+const CompileEpisodes = require('./browserModules/anime/compileEpisodes');
 
 class BrowserManager {
   constructor() {
@@ -29,10 +30,12 @@ class BrowserManager {
     return await searchAnime.collectTitles();
   }
 
-  async selectAnime(href) {
+  async selectAnime(page, href) {
     const url = `${this.base_anime_url}${href}`;
     await page.goto(url);
-
+    const compileEpisodes = new CompileEpisodes(page);
+    const episodes = await compileEpisodes.compileEpisodes();
+    return episodes;
   }
 
   async closeContext(context) {

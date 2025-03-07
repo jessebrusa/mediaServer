@@ -21,12 +21,21 @@ app.get('/search-anime', async (req, res) => {
 });
 
 app.get('/select-anime', async (req, res) => {
-  const test_href = '/anime/pokemon-season-1-indigo-league';
-  const { title, href, imgSrc } = req.query;
-  await browserManager.selectAnime(href);
+  const testTitle = 'Pokemon Season 1 Indigo League';
+  const testHref = '/anime/pokemon-season-1-indigo-league';
+  const testImgSrc =  'https://cdn.animationexplore.com/catimg/136.jpg'
+  // const { title, href, imgSrc } = req.query;
+
   const { context, page } = await browserManager.newPage();
-  
-  res.send('Anime selected');
+  const episodes = await browserManager.selectAnime(page, testHref);
+  const data = {
+    testTitle,
+    testHref,
+    testImgSrc,
+    episodes
+  };
+  await browserManager.closeContext(context);
+  res.send(data);
 });
 
 app.listen(7000, () => {
