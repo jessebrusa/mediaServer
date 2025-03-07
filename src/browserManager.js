@@ -2,6 +2,7 @@ const { chromium } = require('playwright');
 const SearchAnime = require('./browserModules/anime/searchAnime');
 const CompileEpisodes = require('./browserModules/anime/compileEpisodes');
 const ExtractVideoSrc = require('./browserModules/anime/extractVideoSrc');
+const Headers = require('./browserModules/headers');
 
 class BrowserManager {
   constructor() {
@@ -46,14 +47,32 @@ class BrowserManager {
 
   async extractVideoSrcs(episodes) {
     const videoSrcs = [];
-    for (const episode of episodes) {
+    const batchSize = 10; 
+    let processedCount = 0;
+    const totalEpisodes = episodes.length;
+    const headers = Headers.getHeaders();
+
+    for (let i = 0; i < totalEpisodes; i += batchSize) {
+      const batch = episodes.slice(i, i + batchSize);
+      const promises = batch.map(async (episode) => {
         const { context, page } = await this.newPage(false);
+
+        // Set headers and cookies
+        await page.setExtraHTTPHeaders(headers);
+
         await page.goto(episode.url);
         const extractVideoSrc = new ExtractVideoSrc(page);
         const videoSrc = await extractVideoSrc.getVideoSrc();
-        videoSrcs.push(videoSrc);
         await this.closeContext(context);
+        return videoSrc;
+      });
+
+      const batchResults = await Promise.all(promises);
+      videoSrcs.push(...batchResults);
+      processedCount += batch.length;
+      console.log(`Processed ${processedCount}/${totalEpisodes} episodes`);
     }
+
     console.log(videoSrcs);
     return videoSrcs;
   }

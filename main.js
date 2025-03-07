@@ -23,26 +23,27 @@ app.get('/search-anime', async (req, res) => {
 });
 
 app.get('/select-anime', async (req, res) => {
-  // const { title, href, imgSrc } = req.query;
   const animeDataPath = path.join(__dirname, 'anime_data.json');
   const animeData = JSON.parse(fs.readFileSync(animeDataPath, 'utf8'));
 
   const { testTitle, testHref, testImgSrc, episodes } = animeData;
-  
-  (async () => {
-    const { context, page } = await browserManager.newPage();
 
-    console.log('starting episode processing...');
-    const episodes = await browserManager.selectAnime(page, testHref);
-    await browserManager.closeContext(context);
+  downloadSeries(testTitle, testHref, testImgSrc, episodes);
 
-    console.log('starting video extraction...');
-    videoSrcList = await browserManager.extractVideoSrcs(episodes);
-    console.log(videoSrcList);
-    
-  })();
   res.send(`Downloading: ${testTitle}....`);
 });
+
+async function downloadSeries(testTitle, testHref, testImgSrc, episodes) {
+  const { context, page } = await browserManager.newPage();
+
+  console.log('starting episode processing...');
+  const processedEpisodes = await browserManager.selectAnime(page, testHref);
+  await browserManager.closeContext(context);
+
+  console.log('starting video extraction...');
+  const videoSrcList = await browserManager.extractVideoSrcs(processedEpisodes);
+  // console.log(videoSrcList);
+}
 
 app.listen(7000, () => {
   console.log('Server is running on port 7000');
