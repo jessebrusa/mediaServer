@@ -5,7 +5,9 @@ class ExtractVideoSrc {
         this.page = page;
         this.iframe = null;
         this.videoElement = null;
+        this.videoHtml = null;
         this.videoSrc = null;
+        this.soup = null;
     }
 
     async getVideoSrc() {
@@ -21,6 +23,7 @@ class ExtractVideoSrc {
         }
         await this.extractVideoSrc();
         if (this.videoSrc) {
+            console.log(this.videoSrc);
             return this.videoSrc;
         }
         return null;
@@ -28,10 +31,11 @@ class ExtractVideoSrc {
 
     async setIframe() {
         try {
-            await this.page.waitForSelector('iframe#frameNewcizgifilmuploads0, iframe#frameSaturn1', { timeout: 10000 });
-            this.iframe = await this.page.$('iframe#frameNewcizgifilmuploads0') || await this.page.$('iframe#frameSaturn1');
+            await this.page.waitForTimeout(1250);
             
+            this.iframe = await this.page.$('iframe#frameNewcizgifilmuploads0');
             if (!this.iframe) {
+                await this.page.waitForSelector('iframe', { timeout: 30000 });
                 this.iframe = await this.page.$('iframe');
             }
             
@@ -49,49 +53,29 @@ class ExtractVideoSrc {
     }
 
     async extractVideoElement() {
-        const videoSelectors = ['video#video-js_html5_api', 'video#hls_html5_api'];
-        const iframeContent = await this.iframe.contentFrame();
-        
-        if (!iframeContent) {
-            console.log('No iframe content found.');
-            return null;
+        if (!this.soup) {
+            console.log('Soup not initialized.');
+            return;
         }
-
-        for (const selector of videoSelectors) {
-            const videoElement = await iframeContent.$(selector);
-            if (videoElement) {
-                this.videoHtml = await iframeContent.evaluate(el => el.outerHTML, videoElement);
-                this.videoElement = videoElement;
-                return;
-            }
+        const videoSelector = 'video#video-js_html5_api, video#hls_html5_api';
+        const videoElement = this.soup.querySelector(videoSelector);
+        if (videoElement) {
+            this.videoHtml = videoElement.outerHTML;
+            this.videoElement = videoElement;
+        } else {
+            console.log('No video element found.');
         }
-
-        console.log('No video element found.');
     }
 
     async extractVideoSrc() {
         if (this.videoElement) {
-            this.videoSrc = await this.videoElement.getProperty('src');
-            this.videoSrc = await this.videoSrc.jsonValue(); // Await the resolution of the Promise
+            this.videoSrc = this.videoElement.getAttribute('src');
             if (this.videoSrc) {
                 return;
             }
-            const comments = await this.page.evaluate(() => {
-                const comments = [];
-                const treeWalker = document.createTreeWalker(
-                    document,
-                    NodeFilter.SHOW_COMMENT,
-                    { acceptNode: () => NodeFilter.FILTER_ACCEPT },
-                    false
-                );
-                while (treeWalker.nextNode()) {
-                    comments.push(treeWalker.currentNode.nodeValue);
-                }
-                return comments;
-            });
-
+            const comments = Array.from(this.soup.childNodes).filter(node => node.nodeType === 8); // Node.COMMENT_NODE
             for (const comment of comments) {
-                const doc = new JSDOM(comment).window.document;
+                const doc = new JSDOM(comment.nodeValue).window.document;
                 const sourceElement = doc.querySelector('source');
                 if (sourceElement) {
                     this.videoSrc = sourceElement.getAttribute('src');
@@ -105,6 +89,10 @@ class ExtractVideoSrc {
 
     async reloadPage() {
         await this.page.reload({ waitUntil: 'load' });
+    }
+
+    async getCookies() {
+        return await this.page.context().cookies();
     }
 }
 
