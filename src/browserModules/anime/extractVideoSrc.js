@@ -21,7 +21,6 @@ class ExtractVideoSrc {
         }
         await this.extractVideoSrc();
         if (this.videoSrc) {
-            console.log(this.videoSrc);
             return this.videoSrc;
         }
         return null;
@@ -29,8 +28,8 @@ class ExtractVideoSrc {
 
     async setIframe() {
         try {
-            await this.page.waitForSelector('iframe#frameNewcizgifilmuploads0', { timeout: 10000 });
-            this.iframe = await this.page.$('iframe#frameNewcizgifilmuploads0');
+            await this.page.waitForSelector('iframe#frameNewcizgifilmuploads0, iframe#frameSaturn1', { timeout: 10000 });
+            this.iframe = await this.page.$('iframe#frameNewcizgifilmuploads0') || await this.page.$('iframe#frameSaturn1');
             
             if (!this.iframe) {
                 this.iframe = await this.page.$('iframe');
@@ -50,7 +49,7 @@ class ExtractVideoSrc {
     }
 
     async extractVideoElement() {
-        const videoSelector = 'video#video-js_html5_api, video#hls_html5_api';
+        const videoSelectors = ['video#video-js_html5_api', 'video#hls_html5_api'];
         const iframeContent = await this.iframe.contentFrame();
         
         if (!iframeContent) {
@@ -58,14 +57,16 @@ class ExtractVideoSrc {
             return null;
         }
 
-        const videoElement = await iframeContent.$(videoSelector);
-        
-        if (videoElement) {
-            this.videoHtml = await iframeContent.evaluate(el => el.outerHTML, videoElement);
-            this.videoElement = videoElement;
-        } else {
-            console.log('No video element found.');
+        for (const selector of videoSelectors) {
+            const videoElement = await iframeContent.$(selector);
+            if (videoElement) {
+                this.videoHtml = await iframeContent.evaluate(el => el.outerHTML, videoElement);
+                this.videoElement = videoElement;
+                return;
+            }
         }
+
+        console.log('No video element found.');
     }
 
     async extractVideoSrc() {
@@ -100,6 +101,10 @@ class ExtractVideoSrc {
                 }
             }
         }
+    }
+
+    async reloadPage() {
+        await this.page.reload({ waitUntil: 'load' });
     }
 }
 

@@ -4,7 +4,7 @@ const readline = require('readline');
 const Headers = require('./headers');
 
 class VideoDownloader {
-  async download(url, outputPath, numParts = 4) {
+  async download(url, outputPath, numParts = 10) {
     const headers = Headers.getHeaders();
     const response = await axios({
       url,

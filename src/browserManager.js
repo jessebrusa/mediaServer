@@ -12,11 +12,13 @@ class BrowserManager {
   }
 
   async startBrowsers() {
+    const executablePath = '/Users/jessebrusa/Library/Caches/ms-playwright/chromium-1155/chrome-mac/Chromium.app/Contents/MacOS/Chromium';
+    
     if (!this.headlessBrowser) {
-      this.headlessBrowser = await chromium.launch({ headless: true });
+      this.headlessBrowser = await chromium.launch({ headless: true, executablePath });
     }
     if (!this.nonHeadlessBrowser) {
-      this.nonHeadlessBrowser = await chromium.launch({ headless: false });
+      this.nonHeadlessBrowser = await chromium.launch({ headless: false, executablePath });
     }
   }
 
@@ -45,35 +47,54 @@ class BrowserManager {
     return episodes;
   }
 
-  async extractVideoSrcs(episodes) {
-    const videoSrcs = [];
-    const batchSize = 10; 
-    let processedCount = 0;
-    const totalEpisodes = episodes.length;
-    const headers = Headers.getHeaders();
-
-    for (let i = 0; i < totalEpisodes; i += batchSize) {
-      const batch = episodes.slice(i, i + batchSize);
-      const promises = batch.map(async (episode) => {
-        const { context, page } = await this.newPage(false);
-
-        await page.setExtraHTTPHeaders(headers);
-
-        await page.goto(episode.url);
-        const extractVideoSrc = new ExtractVideoSrc(page);
-        const videoSrc = await extractVideoSrc.getVideoSrc();
-        await this.closeContext(context);
-        return videoSrc;
-      });
-
-      const batchResults = await Promise.all(promises);
-      videoSrcs.push(...batchResults);
-      processedCount += batch.length;
-      console.log(`Processed ${processedCount}/${totalEpisodes} episodes`);
+    async extractVideoSrcs(data) {
+      const episodes = data.episodes;
+      const batchSize = 10; 
+      let processedCount = 0;
+      const totalEpisodes = episodes.length;
+      const headers = Headers.getHeaders();
+      const maxRetries = 3; 
+    
+      for (let i = 0; i < totalEpisodes; i += batchSize) {
+        const batch = episodes.slice(i, i + batchSize);
+        const promises = batch.map(async (episode) => {
+          let retries = 0;
+          let success = false;
+          let videoSrc = null;
+    
+          while (retries < maxRetries && !success) {
+            try {
+              const { context, page } = await this.newPage(false);
+              await page.setExtraHTTPHeaders(headers);
+              await page.goto(episode.url);
+              const extractVideoSrc = new ExtractVideoSrc(page);
+              videoSrc = await extractVideoSrc.getVideoSrc();
+              if (!videoSrc) {
+                await extractVideoSrc.reloadPage();
+                videoSrc = await extractVideoSrc.getVideoSrc();
+              }
+              await this.closeContext(context);
+              success = true;
+            } catch (error) {
+              retries++;
+              console.error(`Error processing ${episode.episodeTitle}. Attempt ${retries} of ${maxRetries}. Error: ${error.message}`);
+              if (retries >= maxRetries) {
+                console.error(`Failed to process ${episode.episodeTitle} after ${maxRetries} attempts.`);
+              }
+            }
+          }
+    
+          episode.videoSrc = videoSrc;
+          return episode;
+        });
+    
+        const batchResults = await Promise.all(promises);
+        processedCount += batch.length;
+        console.log(`Processed ${processedCount}/${totalEpisodes} episodes`);
+      }
+    
+      return data;
     }
-
-    return videoSrcs;
-  }
 
   async closeContext(context) {
     await context.close();

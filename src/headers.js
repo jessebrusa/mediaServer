@@ -3,12 +3,10 @@ const os = require('os');
 class Headers {
   static getHeaders() {
     const platform = os.platform();
-    const cookies = 'your_cookie_string_here'; // Replace with actual cookies if needed
     const commonHeaders = {
       'accept': 'application/json, text/javascript, */*; q=0.01',
       'accept-encoding': 'gzip, deflate, br, zstd',
       'accept-language': 'en-US,en;q=0.9',
-      'cookie': cookies,
       'referer': 'https://embed.watchanimesub.net/inc/embed/video-js.php?file=Watch%20Dragon%20Ball%20Heroes%20Episode%201.flv&hd=1&pid=423566&h=fbdeffbb573d679d7258e6ab47fbb710&t=1740872269&embed=www',
       'sec-ch-ua': '"Not(A:Brand";v="99", "Google Chrome";v="133", "Chromium";v="133"',
       'sec-ch-ua-mobile': '?0',
