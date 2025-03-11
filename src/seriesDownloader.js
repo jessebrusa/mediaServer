@@ -1,6 +1,7 @@
 const BrowserManager = require('./browserManager');
 const path = require('path');
 const fs = require('fs');
+const FileManager = require('./fileManager');
 const VideoDownloader = require('./videoDownloader');
 
 class SeriesDownloader {
@@ -16,15 +17,20 @@ class SeriesDownloader {
     const processedEpisodes = await this.processEpisodes(animeData.href);
     animeData.episodes = processedEpisodes;
     fs.writeFileSync(animeDataPath, JSON.stringify(animeData, null, 2));
+    console.log('finished episode processing...');
+
+    console.log('creating file structure...');
+    await this.createFileStructure(animeData.title, animeData.episodes);
+    console.log('finished creating file structure...');
 
     console.log('starting video extraction...');
     const updatedAnimeData = await this.extractVideoSources(animeData);
-    console.log('finished video extraction...');
-
     fs.writeFileSync(animeDataPath, JSON.stringify(updatedAnimeData, null, 2));
+    console.log('finished video extraction...');
 
     console.log('starting video download...');
     await this.downloadVideo(updatedAnimeData);
+    console.log('finished video download...');
   }
 
   async processEpisodes(href) {
@@ -32,6 +38,11 @@ class SeriesDownloader {
     const episodes = await this.browserManager.selectAnime(page, href);
     await this.browserManager.closeContext(context);
     return episodes;
+  }
+
+  async createFileStructure(seriesTitle, episodes) {
+    const fileManager = new FileManager(true);
+    fileManager.createFileStructure(seriesTitle, episodes);
   }
 
   async extractVideoSources(animeData) {
