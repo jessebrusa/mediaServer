@@ -30,7 +30,7 @@ app.get('/select-anime', async (req, res) => {
 
   seriesDownloader.downloadSeries(animeData);
 
-  res.send(`Downloading: ${animeData.testTitle}....`);
+  res.send(`Downloading: ${animeData.title}....`);
 });
 
 app.listen(7500, () => {

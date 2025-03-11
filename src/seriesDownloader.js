@@ -13,7 +13,7 @@ class SeriesDownloader {
     const animeDataPath = path.join(__dirname, '..', 'anime_data.json');
 
     console.log('starting episode processing...');
-    const processedEpisodes = await this.processEpisodes(animeData.testHref);
+    const processedEpisodes = await this.processEpisodes(animeData.href);
     animeData.episodes = processedEpisodes;
     fs.writeFileSync(animeDataPath, JSON.stringify(animeData, null, 2));
 
@@ -27,9 +27,9 @@ class SeriesDownloader {
     await this.downloadVideo(updatedAnimeData);
   }
 
-  async processEpisodes(testHref) {
+  async processEpisodes(href) {
     const { context, page } = await this.browserManager.newPage();
-    const episodes = await this.browserManager.selectAnime(page, testHref);
+    const episodes = await this.browserManager.selectAnime(page, href);
     await this.browserManager.closeContext(context);
     return episodes;
   }
@@ -39,24 +39,8 @@ class SeriesDownloader {
   }
 
   async downloadVideo(animeData) {
-    const episodes = animeData.episodes;
-    const batchSize = 10; 
     const videoDownloader = new VideoDownloader();
-
-    for (let i = 0; i < episodes.length; i += batchSize) {
-      const batch = episodes.slice(i, i + batchSize);
-      const promises = batch.map(async (episode) => {
-        const videoUrl = episode.videoSrc;
-        if (videoUrl) {
-          const outputFileName = path.join('E:', 'Anime', `${episode.outputFileName}`);
-          await videoDownloader.download(videoUrl, outputFileName);
-        } else {
-          console.error(`Invalid video URL for episode: ${episode.episodeTitle}`);
-        }
-      });
-
-      await Promise.all(promises);
-    }
+    await videoDownloader.downloadVideos(animeData.episodes);
   }
 }
 

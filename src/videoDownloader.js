@@ -1,9 +1,27 @@
 const fs = require('fs');
 const axios = require('axios');
 const readline = require('readline');
+const path = require('path');
 const Headers = require('./headers');
 
 class VideoDownloader {
+  async downloadVideos(episodes, batchSize = 10) {
+    for (let i = 0; i < episodes.length; i += batchSize) {
+      const batch = episodes.slice(i, i + batchSize);
+      const promises = batch.map(async (episode) => {
+        const videoUrl = episode.videoSrc;
+        if (videoUrl) {
+          const outputFileName = path.join('E:', 'Anime', `${episode.outputFileName}`);
+          await this.download(videoUrl, outputFileName);
+        } else {
+          console.error(`Invalid video URL for episode: ${episode.episodeTitle}`);
+        }
+      });
+
+      await Promise.all(promises);
+    }
+  }
+
   async download(url, outputPath, numParts = 10) {
     if (!url) {
       throw new Error('Invalid URL');
@@ -26,57 +44,65 @@ class VideoDownloader {
 
     let downloadedLength = 0;
 
-    const downloadPart = async (start, end, partIndex) => {
-      const partHeaders = {
-        ...headers,
-        Range: `bytes=${start}-${end}`
-      };
-
-      const partResponse = await axios({
-        url,
-        method: 'GET',
-        responseType: 'stream',
-        headers: partHeaders
-      });
-
-      if (partResponse.status !== 206) {
-        throw new Error(`Failed to download part ${partIndex}. Status code: ${partResponse.status}`);
-      }
-
-      const partPath = `${outputPath}.part${partIndex}`;
-      const writer = fs.createWriteStream(partPath);
-
-      partResponse.data.on('data', (chunk) => {
-        downloadedLength += chunk.length;
-        const progress = ((downloadedLength / contentLength) * 100).toFixed(2);
-        readline.cursorTo(process.stdout, 0);
-        process.stdout.write(`Downloaded ${progress}% (${downloadedLength}/${contentLength} bytes)`);
-      });
-
-      partResponse.data.pipe(writer);
-
-      return new Promise((resolve, reject) => {
-        writer.on('finish', () => {
-          console.log(`\nPart ${partIndex} downloaded successfully`);
-          resolve();
-        });
-        writer.on('error', (err) => {
-          console.error(`Error writing part ${partIndex} to file: ${err}`);
-          reject(err);
-        });
-      });
-    };
-
     const downloadPromises = [];
     for (let i = 0; i < numParts; i++) {
       const start = i * partSize;
       const end = (i + 1) * partSize - 1;
-      downloadPromises.push(downloadPart(start, end, i));
+      downloadPromises.push(this.downloadPart(url, headers, start, end, i, outputPath, contentLength, downloadedLength));
     }
 
     await Promise.all(downloadPromises);
 
-    // Combine parts into a single file
+    this.combineParts(outputPath, numParts);
+    console.log(`\nSuccessfully downloaded video to ${outputPath}`);
+  }
+
+  async downloadPart(url, headers, start, end, partIndex, outputPath, contentLength, downloadedLength) {
+    const partHeaders = {
+      ...headers,
+      Range: `bytes=${start}-${end}`
+    };
+
+    const partResponse = await axios({
+      url,
+      method: 'GET',
+      responseType: 'stream',
+      headers: partHeaders
+    });
+
+    if (partResponse.status !== 206) {
+      throw new Error(`Failed to download part ${partIndex}. Status code: ${partResponse.status}`);
+    }
+
+    const partPath = `${outputPath}.part${partIndex}`;
+    const writer = fs.createWriteStream(partPath);
+
+    partResponse.data.on('data', (chunk) => {
+      downloadedLength += chunk.length;
+      this.updateProgress(downloadedLength, contentLength);
+    });
+
+    partResponse.data.pipe(writer);
+
+    return new Promise((resolve, reject) => {
+      writer.on('finish', () => {
+        console.log(`\nPart ${partIndex} downloaded successfully`);
+        resolve();
+      });
+      writer.on('error', (err) => {
+        console.error(`Error writing part ${partIndex} to file: ${err}`);
+        reject(err);
+      });
+    });
+  }
+
+  updateProgress(downloadedLength, contentLength) {
+    const progress = ((downloadedLength / contentLength) * 100).toFixed(2);
+    readline.cursorTo(process.stdout, 0);
+    process.stdout.write(`Downloaded ${progress}% (${downloadedLength}/${contentLength} bytes)`);
+  }
+
+  combineParts(outputPath, numParts) {
     const writer = fs.createWriteStream(outputPath);
     for (let i = 0; i < numParts; i++) {
       const partPath = `${outputPath}.part${i}`;
@@ -85,8 +111,6 @@ class VideoDownloader {
       fs.unlinkSync(partPath);
     }
     writer.end();
-
-    console.log(`\nSuccessfully downloaded video to ${outputPath}`);
   }
 }
 
