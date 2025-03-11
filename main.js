@@ -8,18 +8,20 @@ const app = express();
 const browserManager = new BrowserManager();
 const seriesDownloader = new SeriesDownloader();
 
+app.use(express.static(path.join(__dirname, 'public')));
+
 (async () => {
   await browserManager.startBrowsers();
 })();
 
 app.get('/', (req, res) => {
-  res.send('Hello, Express!');
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 app.get('/search-anime', async (req, res) => {
-  const test_title = 'pokemon';
+  const title = req.query.title;
   const { context, page } = await browserManager.newPage();
-  const titles = await browserManager.searchAnime(page, test_title);
+  const titles = await browserManager.searchAnime(page, title);
   await browserManager.closeContext(context);
   res.send(titles);
 });

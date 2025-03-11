@@ -1,0 +1,120 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    justify-content: space-between;
+}
+
+.card-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 16px;
+    width: 30%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.card h3 {
+    margin-top: 0;
+}
+
+main {
+    display: flex;
+    justify-content: space-around;
+    align-content: center;
+    flex-wrap: wrap;
+}
+
+.cardButton {
+    background: none;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 16px;
+    width: 30%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    outline: inherit;
+    margin: 10px;
+}
+
+.cardButton:hover {
+    background-color: #f9f9f9;
+}
+
+.cardButton:active {
+    background-color: #f0f0f0;
+    transform: scale(.95);
+}
+
+.movieTvCard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loadingSpinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-left-color: #000;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    animation: spin 1s linear infinite;
+    margin-left: 10px;
+}
+
+.animeCard {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 16px;
+    text-align: center;
+    cursor: pointer;
+    width: 200px;
+    box-sizing: border-box;
+}
+
+.animeCard:hover {
+    background-color: #f9f9f9;
+}
+
+.animeCard:active {
+    background-color: #f0f0f0;
+    transform: scale(.95);
+}
+
+.animeCard img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.animeCard h2 {
+    margin-bottom: 8px;
+    font-size: 1.2em;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
