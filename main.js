@@ -34,9 +34,16 @@ app.get('/select-anime', async (req, res) => {
     imgSrc
   };
 
-  await seriesDownloader.downloadSeries(animeData);
-
   res.json({ success: true });
+
+  setImmediate(async () => {
+    try {
+      await seriesDownloader.downloadSeries(animeData);
+      console.log(`Download completed for ${title}`);
+    } catch (error) {
+      console.error(`Error downloading ${title}:`, error);
+    }
+  });
 });
 
 app.listen(7500, () => {
