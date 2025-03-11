@@ -1,6 +1,7 @@
 class AnimeCard {
-    constructor(container) {
+    constructor(container, movieTvInstance) {
         this.container = container;
+        this.movieTvInstance = movieTvInstance;
     }
 
     createCard(data) {
@@ -20,10 +21,13 @@ class AnimeCard {
         card.addEventListener('click', async () => {
             console.log(`Navigating to: ${card.dataset.href}`);
             try {
-                const response = await fetch(`/scrape?href=${encodeURIComponent(card.dataset.href)}`);
+                const response = await fetch(`/select-anime?href=${encodeURIComponent(card.dataset.href)}&title=${encodeURIComponent(data.title)}&imgSrc=${encodeURIComponent(data.imgSrc)}`);
                 const result = await response.json();
                 console.log(result);
-                // Handle the result as needed
+                if (result.success) {
+                    this.removeCards();
+                    this.showDownloadingMessage(data.title);
+                }
             } catch (error) {
                 console.error('Error:', error);
             }
@@ -43,6 +47,25 @@ class AnimeCard {
         while (cards.length > 0) {
             cards[0].remove();
         }
+    }
+
+    showDownloadingMessage(title) {
+        const messageContainer = document.createElement('div');
+        messageContainer.classList.add('downloadingMessage');
+
+        const message = document.createElement('h2');
+        message.textContent = `Downloading ${title}...`;
+        messageContainer.appendChild(message);
+
+        const button = document.createElement('button');
+        button.textContent = 'Search More Media';
+        button.addEventListener('click', () => {
+            messageContainer.remove();
+            this.movieTvInstance.createCards(); // Call createCards on the MovieTv instance
+        });
+        messageContainer.appendChild(button);
+
+        this.container.appendChild(messageContainer);
     }
 }
 

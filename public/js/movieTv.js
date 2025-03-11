@@ -7,7 +7,7 @@ class MovieTv {
         this.container = document.getElementsByTagName('main')[0];
         this.card = new Card(this.container, this.createAnimeOtherCards.bind(this), this.createTitleInput.bind(this));
         this.titleInput = new TitleInput(this.container, this.onTitleSubmit.bind(this));
-        this.animeCard = new AnimeCard(this.container);
+        this.animeCard = new AnimeCard(this.container, this); 
     }
 
     createCards() {
@@ -18,6 +18,10 @@ class MovieTv {
     createAnimeOtherCards() {
         this.card.createAnimeCard();
         this.card.createOtherCard();
+    }
+
+    createTitleInput() {
+        this.titleInput.create();
     }
 
     onTitleSubmit(title) {
@@ -37,10 +41,6 @@ class MovieTv {
                     reject(error);
                 });
         });
-    }
-
-    createTitleInput() {
-        this.titleInput.createTitleInput();
     }
 }
 

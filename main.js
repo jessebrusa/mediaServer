@@ -15,7 +15,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 })();
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 app.get('/search-anime', async (req, res) => {
@@ -27,12 +27,16 @@ app.get('/search-anime', async (req, res) => {
 });
 
 app.get('/select-anime', async (req, res) => {
-  const animeDataPath = path.join(__dirname, 'anime_data.json');
-  const animeData = JSON.parse(fs.readFileSync(animeDataPath, 'utf8'));
+  const { href, title, imgSrc } = req.query;
+  const animeData = {
+    href,
+    title,
+    imgSrc
+  };
 
-  seriesDownloader.downloadSeries(animeData);
+  await seriesDownloader.downloadSeries(animeData);
 
-  res.send(`Downloading: ${animeData.title}....`);
+  res.json({ success: true });
 });
 
 app.listen(7500, () => {

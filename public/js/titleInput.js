@@ -4,7 +4,7 @@ class TitleInput {
         this.onSubmit = onSubmit;
     }
 
-    createTitleInput() {
+    create() {
         const container = document.createElement('div');
         container.classList.add('titleInputContainer');
 

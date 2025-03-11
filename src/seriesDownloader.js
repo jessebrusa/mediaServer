@@ -12,15 +12,15 @@ class SeriesDownloader {
 
   async downloadSeries(animeData) {
     const animeDataPath = path.join(__dirname, '..', 'anime_data.json');
+    const fileManager = new FileManager(true, animeData.title);
 
     console.log('starting episode processing...');
-    const processedEpisodes = await this.processEpisodes(animeData.href);
+    const processedEpisodes = await this.processEpisodes(animeData.href, animeData.title);
     animeData.episodes = processedEpisodes;
     fs.writeFileSync(animeDataPath, JSON.stringify(animeData, null, 2));
     console.log('finished episode processing...');
 
     console.log('creating file structure...');
-    const fileManager = new FileManager(true);
     await this.createFileStructure(animeData.title, animeData.episodes);
     console.log('finished creating file structure...');
 
@@ -34,19 +34,19 @@ class SeriesDownloader {
     console.log('finished video download...');
   }
 
-  async processEpisodes(href) {
+  async processEpisodes(href, title) {
     const { context, page } = await this.browserManager.newPage();
     const episodes = await this.browserManager.selectAnime(page, href);
     await this.browserManager.closeContext(context);
     episodes.forEach(episode => {
-      episode.seriesTitle = 'Pokemon Season 2 Orange Islands League'; // Set the series title
+      episode.seriesTitle = title;
     });
     return episodes;
   }
 
   async createFileStructure(seriesTitle, episodes) {
-    const fileManager = new FileManager(true);
-    fileManager.createFileStructure(seriesTitle, episodes);
+    const fileManager = new FileManager(true, seriesTitle);
+    fileManager.createFileStructure(episodes);
   }
 
   async extractVideoSources(animeData) {

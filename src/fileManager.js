@@ -2,24 +2,25 @@ const path = require('path');
 const fs = require('fs');
 
 class FileManager {
-  constructor(workLocation = false) {
+  constructor(workLocation = false, seriesTitle = null) {
     this.parentDirectory = this.setParentDirectory(workLocation);
+    this.seriesTitle = seriesTitle ? this.sanitizeFileName(seriesTitle) : null;
   }
 
-  createFileStructure(seriesTitle, episodes) {
-    this.createSeriesDirectory(seriesTitle);
-    this.createSeasonDirectories(seriesTitle, episodes);
+  createFileStructure(episodes) {
+    this.createSeriesDirectory();
+    this.createSeasonDirectories(episodes);
   }
 
-  createSeriesDirectory(seriesTitle) {
-    const seriesPath = path.join(this.parentDirectory, this.sanitizeFileName(seriesTitle));
+  createSeriesDirectory() {
+    const seriesPath = path.join(this.parentDirectory, this.seriesTitle);
     if (!fs.existsSync(seriesPath)) {
       fs.mkdirSync(seriesPath);
     }
   }
 
-  createSeasonDirectories(seriesTitle, episodes) {
-    const seriesPath = path.join(this.parentDirectory, this.sanitizeFileName(seriesTitle));
+  createSeasonDirectories(episodes) {
+    const seriesPath = path.join(this.parentDirectory, this.seriesTitle);
     const seasonNumbers = this.getSeasonNumbers(episodes);
 
     seasonNumbers.forEach(seasonNumber => {
@@ -31,12 +32,13 @@ class FileManager {
     });
   }
 
-  getSeriesDirectory(seriesTitle) {
-    return path.join(this.parentDirectory, this.sanitizeFileName(seriesTitle));
+  getSeriesDirectory() {
+    return path.join(this.parentDirectory, this.seriesTitle);
   }
 
-  getSeasonDirectory(seriesTitle, seasonNum) {
-    return path.join(this.getSeriesDirectory(seriesTitle), `Season ${String(seasonNum).padStart(2, '0')}`);
+  getSeasonDirectory(seasonNum) {
+    const formattedSeasonNumber = String(seasonNum).padStart(2, '0');
+    return path.join(this.getSeriesDirectory(), `Season ${formattedSeasonNumber}`);
   }
 
   getSeasonNumbers(episodes) {
