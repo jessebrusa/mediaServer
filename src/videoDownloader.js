@@ -5,6 +5,10 @@ const Headers = require('./headers');
 
 class VideoDownloader {
   async download(url, outputPath, numParts = 10) {
+    if (!url) {
+      throw new Error('Invalid URL');
+    }
+
     const headers = Headers.getHeaders();
     const response = await axios({
       url,
@@ -78,7 +82,7 @@ class VideoDownloader {
       const partPath = `${outputPath}.part${i}`;
       const data = fs.readFileSync(partPath);
       writer.write(data);
-      fs.unlinkSync(partPath); // Delete the part file after writing
+      fs.unlinkSync(partPath);
     }
     writer.end();
 
