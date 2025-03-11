@@ -53,6 +53,7 @@ class BrowserManager {
     const headers = Headers.getHeaders();
     const maxRetries = 3;
     const batchSize = 10; 
+    const totalEpisodes = episodes.length;
   
     for (let i = 0; i < episodes.length; i += batchSize) {
       const batch = episodes.slice(i, i + batchSize);
@@ -63,6 +64,7 @@ class BrowserManager {
   
         while (retries < maxRetries && !success) {
           try {
+            console.log(`Processing episode ${i + 1} of ${totalEpisodes}: ${episode.episodeTitle}`);
             const { context, page } = await this.newPage(true);
             await page.setExtraHTTPHeaders(headers);
             await page.goto(episode.url);

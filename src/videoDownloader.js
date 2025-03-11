@@ -5,23 +5,6 @@ const path = require('path');
 const Headers = require('./headers');
 
 class VideoDownloader {
-  async downloadVideos(episodes, batchSize = 10) {
-    for (let i = 0; i < episodes.length; i += batchSize) {
-      const batch = episodes.slice(i, i + batchSize);
-      const promises = batch.map(async (episode) => {
-        const videoUrl = episode.videoSrc;
-        if (videoUrl) {
-          const outputFileName = path.join('E:', 'Anime', `${episode.outputFileName}`);
-          await this.download(videoUrl, outputFileName);
-        } else {
-          console.error(`Invalid video URL for episode: ${episode.episodeTitle}`);
-        }
-      });
-
-      await Promise.all(promises);
-    }
-  }
-
   async download(url, outputPath, numParts = 10) {
     if (!url) {
       throw new Error('Invalid URL');
@@ -111,6 +94,24 @@ class VideoDownloader {
       fs.unlinkSync(partPath);
     }
     writer.end();
+  }
+
+  async downloadMultiple(episodes, fileManager, batchSize = 10) {
+    for (let i = 0; i < episodes.length; i += batchSize) {
+      const batch = episodes.slice(i, i + batchSize);
+      const promises = batch.map(async (episode) => {
+        const videoUrl = episode.videoSrc;
+        if (videoUrl) {
+          const seasonDir = fileManager.getSeasonDirectory(episode.seriesTitle, episode.seasonNumber);
+          const outputFileName = path.join(seasonDir, `${episode.outputFileName}`);
+          await this.download(videoUrl, outputFileName);
+        } else {
+          console.error(`Invalid video URL for episode: ${episode.episodeTitle}`);
+        }
+      });
+
+      await Promise.all(promises);
+    }
   }
 }
 

@@ -23,7 +23,6 @@ class ExtractVideoSrc {
         }
         await this.extractVideoSrc();
         if (this.videoSrc) {
-            console.log(this.videoSrc);
             return this.videoSrc;
         }
         return null;

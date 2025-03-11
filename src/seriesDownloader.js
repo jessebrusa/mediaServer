@@ -20,6 +20,7 @@ class SeriesDownloader {
     console.log('finished episode processing...');
 
     console.log('creating file structure...');
+    const fileManager = new FileManager(true);
     await this.createFileStructure(animeData.title, animeData.episodes);
     console.log('finished creating file structure...');
 
@@ -29,7 +30,7 @@ class SeriesDownloader {
     console.log('finished video extraction...');
 
     console.log('starting video download...');
-    await this.downloadVideo(updatedAnimeData);
+    await this.downloadVideo(updatedAnimeData, fileManager);
     console.log('finished video download...');
   }
 
@@ -37,6 +38,9 @@ class SeriesDownloader {
     const { context, page } = await this.browserManager.newPage();
     const episodes = await this.browserManager.selectAnime(page, href);
     await this.browserManager.closeContext(context);
+    episodes.forEach(episode => {
+      episode.seriesTitle = 'Pokemon Season 2 Orange Islands League'; // Set the series title
+    });
     return episodes;
   }
 
@@ -49,9 +53,9 @@ class SeriesDownloader {
     return await this.browserManager.extractVideoSrcs(animeData);
   }
 
-  async downloadVideo(animeData) {
+  async downloadVideo(animeData, fileManager) {
     const videoDownloader = new VideoDownloader();
-    await videoDownloader.downloadVideos(animeData.episodes);
+    await videoDownloader.downloadMultiple(animeData.episodes, fileManager);
   }
 }
 
