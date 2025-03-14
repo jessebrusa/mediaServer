@@ -9,13 +9,10 @@ class MusicFileManager {
     }
 
     async createFileStructure() {
-        console.log('Creating file structure...');
         await this.setParentDirectory();
-        const artistName = await this.extractArtistName();
-        console.log('Artist:', artistName);
+        await this.extractArtistName();
         this.removeDuplicateAlbums();
-        const albumNames = await this.extractAlbumNames();
-        console.log('Albums after removing duplicates:', albumNames);
+        await this.extractAlbumNames();
         await this.createArtistDirectory();
         await this.createAlbumDirectories();
         return this.getAlbumPaths();
@@ -108,12 +105,6 @@ class MusicFileManager {
                         tracks: album.tracks || []
                     }, null, 2)
                 );
-                
-                // Log the updated Map for debugging
-                console.log('Current albumPaths:');
-                for (const [key, value] of this.albumPaths) {
-                    console.log(`${key}:`, value);
-                }
             } catch (error) {
                 console.error(`Error creating directory: ${error}`);
             }
