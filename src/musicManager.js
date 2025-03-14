@@ -1,4 +1,7 @@
 const ObtainAlbums = require('./musicModules/obtainAlbums');
+const MusicFileManager = require('./musicModules/musicFileManager');
+const fs = require('fs');
+const path = require('path');
 
 class MusicManager {
     constructor(query, artist = true) {
@@ -13,9 +16,11 @@ class MusicManager {
     } 
 
     async obtainAlbums() {
-        console.log('Obtaining albums...');
-        const obtainAlbums = new ObtainAlbums();
-        const albums = await obtainAlbums.getArtistAlbums(this.query);
+        // console.log('Obtaining albums...');
+        // const albums = await new ObtainAlbums(this.query).getArtistAlbums();
+        const albumsPath = path.join(__dirname, 'musicModules', 'albums.json');
+        const albums = JSON.parse(fs.readFileSync(albumsPath, 'utf8'));
+        new MusicFileManager(albums).createFileStructure();
     }
 }
 
