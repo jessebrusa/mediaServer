@@ -2,8 +2,6 @@ const CorrectArtist = require('./musicModules/correctArtist');
 const CollectSongTitles = require('./musicModules/collectSongTitles');
 const MusicFileManager = require('./musicModules/musicFileManager');
 const MusicDownloader = require('./musicModules/musicDownloader');
-const fs = require('fs');
-const path = require('path');
 
 class MusicManager {
     constructor(query, artist = true) {
@@ -36,7 +34,7 @@ class MusicManager {
             return;
         }
 
-
+        console.log(this.songTitles);
     }
 
     async correctArtist() {
