@@ -1,4 +1,5 @@
-const ObtainAlbums = require('./musicModules/obtainAlbums');
+const CorrectArtist = require('./musicModules/correctArtist');
+const CollectSongTitles = require('./musicModules/collectSongTitles');
 const MusicFileManager = require('./musicModules/musicFileManager');
 const MusicDownloader = require('./musicModules/musicDownloader');
 const fs = require('fs');
@@ -8,74 +9,48 @@ class MusicManager {
     constructor(query, artist = true) {
         this.query = query;
         this.artist = artist;
-        this.maxRetries = 3;
-        this.retryDelay = 1000; // 1 second
-    }
-
-    async retryOperation(operation, retries = this.maxRetries) {
-        for (let i = 0; i < retries; i++) {
-            try {
-                return await operation();
-            } catch (error) {
-                if (i === retries - 1) throw error; // Last attempt, throw the error
-                
-                console.log(`Attempt ${i + 1} failed, retrying in ${this.retryDelay}ms...`);
-                await new Promise(resolve => setTimeout(resolve, this.retryDelay));
-                
-                // Increase delay for next retry
-                this.retryDelay *= 2;
-            }
-        }
-    }
-
-    async obtainAlbums() {
-        try {
-            console.log('Obtaining albums...');
-            
-            // Wrap the album fetching in retry logic
-            const albums = await this.retryOperation(async () => {
-                const result = await new ObtainAlbums(this.query).getArtistAlbums();
-                if (!result || !result.artist) {
-                    throw new Error(`No albums found for artist: ${this.query}`);
-                }
-                return result;
-            });
-
-            console.log(`Found ${albums.albums.length} albums for ${albums.artist.name}`);
-
-            console.log('Creating file structure...');  
-            const albumPaths = await new MusicFileManager(albums).createFileStructure();
-
-            console.log('Downloading music...');
-            await new MusicDownloader(albumPaths).downloadAlbums();
-            
-            console.log('Music download completed successfully');
-            return true;
-        } catch (error) {
-            if (error.response?.status === 404) {
-                console.error(`Artist "${this.query}" not found. Please check the spelling.`);
-            } else if (error.code === 'ENOTFOUND') {
-                console.error('Network error. Please check your internet connection.');
-            } else {
-                console.error('Error obtaining albums:', error.message);
-                if (error.response?.data) {
-                    console.error('API response:', error.response.data);
-                }
-            }
-            throw error;
-        }
+        this.songTitles = [];
+        this.artistDirectory = null;
     }
 
     async obtainMusic() {
-        try {
-            if (this.artist) {
-                await this.obtainAlbums();
-            }
-        } catch (error) {
-            console.error('Failed to obtain music:', error.message);
-            process.exit(1);
+        if (!this.artist) {
+            return;
         }
+
+        await this.correctArtist();
+
+        if (!this.artist) {
+            console.error(`No artist found for "${this.query}"`);
+            return;
+        }
+
+        await this.collectSongTitles();
+
+        if (this.songTitles.length === 0) {
+            console.error(`No songs found for ${this.artist}`);
+            return;
+        }
+
+        console.log(this.artist);
+        this.artistDirectory = await this.createFileStructure();
     }
+
+    async correctArtist() {
+        const corrector = new CorrectArtist();
+        this.artist =  await corrector.findCorrectArtist(this.query);
+    }
+
+    async collectSongTitles() {
+        const collector = new CollectSongTitles();
+        this.songTitles = await collector.getAllTracks(this.artist);
+    }
+
+    async createFileStructure() {
+        const manager = new MusicFileManager(this.artist);
+        return await manager.createFileStructure();
+    }
+
 }
 
 if (require.main === module) {
