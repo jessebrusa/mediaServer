@@ -19,21 +19,24 @@ class MusicManager {
         }
 
         await this.correctArtist();
-
         if (!this.artist) {
             console.error(`No artist found for "${this.query}"`);
             return;
         }
 
         await this.collectSongTitles();
-
         if (this.songTitles.length === 0) {
             console.error(`No songs found for ${this.artist}`);
             return;
         }
 
-        console.log(this.artist);
         this.artistDirectory = await this.createFileStructure();
+        if (!this.artistDirectory) {
+            console.error('Error creating file structure');
+            return;
+        }
+
+
     }
 
     async correctArtist() {

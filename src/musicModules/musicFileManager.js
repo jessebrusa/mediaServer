@@ -31,7 +31,11 @@ class MusicFileManager {
     }
 
     async getArtistDirectory() {
-        return this.artistDirectory;
+        if (!this.artistDirectory) {
+            return null;
+        } 
+
+         return this.artistDirectory;
     }
 
     sanitizeName(name) {
