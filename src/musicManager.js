@@ -60,8 +60,8 @@ class MusicManager {
 }
 
 if (require.main === module) {
-    const query = "The O'Jays";
-    new MusicManager(query, artist = true).obtainMusic();
+    const query = "midnight star";
+    new MusicManager(query).obtainMusic();
 }
 
 module.exports = MusicManager;

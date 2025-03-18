@@ -13,6 +13,8 @@ class CollectSongTitles {
             'anniversary', 'edition',
             'stereo', 'mono', 'extended',
             'Re-Recorded', 'Re-Record',
+            'Single Version', 'Version',
+            'Extended'
         ];
         return remasterKeywords.some(keyword => 
             trackName.toLowerCase().includes(keyword.toLowerCase())
@@ -37,7 +39,7 @@ class CollectSongTitles {
             .trim();
     }
 
-    async fetchTopTracks(artist, limit = 100) {
+    async fetchTopTracks(artist, limit = 65) {
         try {
             const response = await axios.get(this.baseUrl, {
                 params: {
