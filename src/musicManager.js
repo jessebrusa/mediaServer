@@ -34,7 +34,7 @@ class MusicManager {
             return;
         }
 
-        console.log(this.songTitles);
+        await this.downloadMusic();
     }
 
     async correctArtist() {
@@ -50,6 +50,11 @@ class MusicManager {
     async createFileStructure() {
         const manager = new MusicFileManager(this.artist);
         return await manager.createFileStructure();
+    }
+
+    async downloadMusic() {
+        const downloader = new MusicDownloader(this.artistDirectory, this.songTitles);
+        await downloader.downloadTracks();
     }
 
 }

@@ -6,7 +6,7 @@ const os = require('os');
 class DownloadTrack {
     constructor(title, outputDirectory) {
         this.title = title;
-        this.outputDirectory = outputDirectory;
+        this.outputDirectory = path.normalize(outputDirectory);
         this.output = null;
         this.url = null;
         this.ffmpegPath = this.getFfmpegPath();
@@ -21,7 +21,6 @@ class DownloadTrack {
 
     async searchTrack() {
         try {
-            console.log(`Searching for: ${this.title}`);
             const searchResult = await youtubedl(
                 `ytsearch1:${this.title}`,
                 {
@@ -33,7 +32,6 @@ class DownloadTrack {
     
             if (searchResult?.entries?.[0]?.webpage_url) {
                 this.url = searchResult.entries[0].webpage_url;
-                console.log(`Found video URL: ${this.url}`);
                 return;
             }
             
@@ -49,7 +47,6 @@ class DownloadTrack {
         if (!fs.existsSync(ffmpegPath)) {
             throw new Error(`ffmpeg not found at: ${ffmpegPath}`);
         }
-        console.log('Using ffmpeg from:', ffmpegPath);
         return ffmpegPath;
     }
 
@@ -58,7 +55,6 @@ class DownloadTrack {
             throw new Error('No URL set for download');
         }
 
-        console.log(`Downloading to: ${this.output}`);
         await youtubedl(this.url, {
             output: this.output,
             extractAudio: true,
