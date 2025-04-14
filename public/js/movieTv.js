@@ -11,8 +11,7 @@ class MovieTv {
     }
 
     createCards() {
-        this.card.createMovieCard();
-        this.card.createTvCard();
+        this.createTitleInput();
     }
 
     createAnimeOtherCards() {
