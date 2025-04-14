@@ -110,21 +110,6 @@ class SeriesDownloader {
         }
     }
   }
-
-  async retryMove(source, destination, retries = 3, delay = 1000) {
-    for (let attempt = 1; attempt <= retries; attempt++) {
-      try {
-        await fsExtra.move(source, destination, { overwrite: true });
-        return; // Exit if successful
-      } catch (error) {
-        if (attempt === retries) {
-          throw error; // Throw error after final attempt
-        }
-        console.log(`Retrying move (${attempt}/${retries})...`);
-        await new Promise(resolve => setTimeout(resolve, delay));
-      }
-    }
-  }
 }
 
 module.exports = SeriesDownloader;
