@@ -3,6 +3,7 @@ const fs = require('fs');
 
 class FileManager {
   constructor(workLocation = false, seriesTitle = null) {
+    this.completedDirectory = null;
     this.parentDirectory = this.setParentDirectory(workLocation);
     this.seriesTitle = seriesTitle ? this.sanitizeFileName(seriesTitle) : null;
   }
@@ -51,10 +52,15 @@ class FileManager {
 
   setParentDirectory(workLocation = false) {
     if (workLocation) {
+      this.completedDirectory = path.join('E:', 'Anime', 'Completed');
       return path.join('E:', 'Anime', 'Downloads');
     } else {
       return path.join(__dirname, 'Anime');
     }
+  }
+
+  getCompletedDirectory() {
+    return this.completedDirectory;
   }
 
   sanitizeFileName(fileName) {
