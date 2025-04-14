@@ -51,7 +51,7 @@ class FileManager {
 
   setParentDirectory(workLocation = false) {
     if (workLocation) {
-      return path.join('E:', 'Anime');
+      return path.join('E:', 'Anime', 'Downloads');
     } else {
       return path.join(__dirname, 'Anime');
     }

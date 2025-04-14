@@ -31,9 +31,21 @@ class SeriesDownloader {
     await this.downloadVideo(updatedAnimeData, fileManager);
     console.log('finished video download...');
 
-    console.log('starting library scan...');
-    await this.scanLibrary();
-    console.log('finished library scan');
+    // Move the series directory to the Completed folder
+    const completedFolder = path.join('E:', 'Anime', 'Completed');
+    const seriesPath = fileManager.getSeriesDirectory();
+    const completedSeriesPath = path.join(completedFolder, fileManager.seriesTitle);
+
+    if (!fs.existsSync(completedFolder)) {
+        fs.mkdirSync(completedFolder, { recursive: true });
+    }
+
+    fs.renameSync(seriesPath, completedSeriesPath);
+    console.log(`Moved completed series to: ${completedSeriesPath}`);
+
+    // console.log('starting library scan...');
+    // await this.scanLibrary();
+    // console.log('finished library scan');
   }
 
   async processEpisodes(href, title) {
