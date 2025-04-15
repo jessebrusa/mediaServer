@@ -21,7 +21,7 @@ class EpisodeProcessor {
             'seasonNumber': this.seasonNumber,
             'episodeNumber': this.episodeNumber,
             'outputFileName': this.outputFileName
-        }
+        };
     }
 
     async process_episode_title() {
@@ -46,10 +46,12 @@ class EpisodeProcessor {
         const title = await this.element.textContent();
         const match = title.match(/Episode (\d+)/i);
         let episodeNumber;
+
+        // If a match is found, use the parsed number; otherwise, default to 1
         if (match) {
             episodeNumber = parseInt(match[1], 10);
         } else {
-            episodeNumber = 1;
+            episodeNumber = 1; // Default to 1 if no episode number is found
         }
 
         const seasonKey = `Season ${this.seasonNumber}`;
@@ -57,12 +59,22 @@ class EpisodeProcessor {
             this.assigned_episode_numbers[seasonKey] = new Set();
         }
 
+        // If Episode 0 is detected, increment all episode numbers in the season
+        if (episodeNumber === 0) {
+            console.log(`Episode 0 detected in ${seasonKey}. Incrementing all episode numbers.`);
+            const updatedNumbers = new Set();
+            this.assigned_episode_numbers[seasonKey].forEach(num => updatedNumbers.add(num + 1));
+            this.assigned_episode_numbers[seasonKey] = updatedNumbers;
+            episodeNumber = 1; // Start the numbering at 1
+        }
+
+        // Ensure the episode number is unique within the season
         while (this.assigned_episode_numbers[seasonKey].has(episodeNumber)) {
             episodeNumber += 1;
         }
 
         this.assigned_episode_numbers[seasonKey].add(episodeNumber);
-        this.episodeNumber = episodeNumber.toString().padStart(2, '0');
+        this.episodeNumber = episodeNumber.toString().padStart(2, '0'); // Pad to 2 digits
     }
 }
 
